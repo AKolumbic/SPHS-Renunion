@@ -1,34 +1,34 @@
 const router = require('express').Router();
-const Contact = require('./ContactModel.js');
+const Upload = require('../Models/UploadModel');
 
 router
     .route('/')
     .get((req, res) => {
-        Contact
+        Upload 
             .find()
             .then(response => {
                 res.status(200).json(response)
             })
             .catch(err => {
                 res.status(500).json({
-                    errorMessage: "Contact Info could NOT be retrieved"
+                    errorMessage: "Error Getting Upload Info"
                 })
             })
     })
-    .post((req, res)=> {
-        const{ name, email } = req.body;
-        const ContactInfo = new Contact({ name, email });
+    .post((req, res) => {
+        const{ pic } = req.body;
+        const UploadInfo = new Upload({ pic })
 
-        ContactInfo
+        UploadInfo
             .save()
             .then(response => {
                 res.status(201).json({
-                    success: "New Contact Information Added", response
+                    success: "File Uploaded", response
                 })
             })
             .catch(err => {
                 res.status(500).json({
-                    errorMessage: "There was an error adding the Contact Info to the Database"
+                    errorMessage: "There was an error uploading the file to the Database"
                 })
             })
     })

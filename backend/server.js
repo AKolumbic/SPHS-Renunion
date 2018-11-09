@@ -4,7 +4,8 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const ContactInfo = require('./ContactRouter');
+const ContactInfo = require('./Routers/ContactRouter');
+const Uploads = require('./Routers/UploadRouter');
 const server = express();
 const port = process.env.PORT || 5555;
 const db = process.env.MLAB;
@@ -31,6 +32,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 server.use('/info', ContactInfo);
+server.use('/upload', Uploads);
 
 // Sanity Check
 server.get('/', (req, res) => {
